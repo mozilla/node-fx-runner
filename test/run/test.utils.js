@@ -170,6 +170,9 @@ describe("lib/utils", function () {
       [["beta", "linux", "x86"], "/usr/lib/firefox-beta"],
       [["beta", "linux", "x86_64"], "/usr/lib64/firefox-beta"],
 
+      [["firefoxdeveloperedition", "darwin", "x86"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
+      [["firefoxdeveloperedition", "darwin", "x86_64"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
+
       [["aurora", "darwin", "x86"], "/Applications/FirefoxAurora.app/Contents/MacOS/firefox-bin"],
       [["aurora", "darwin", "x86_64"], "/Applications/FirefoxAurora.app/Contents/MacOS/firefox-bin"],
       [["aurora", "linux", "x86"], "/usr/lib/firefox-aurora"],
