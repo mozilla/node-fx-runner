@@ -1,6 +1,6 @@
 {
   "name": "fx-runner",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A node cli to control Firefox",
   "main": "index.js",
   "bin": {
@@ -14,6 +14,10 @@
     "mozilla",
     "cli"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mozilla-jetpack/node-fx-runner"
+  },
   "author": {
     "name": "Erik Vold",
     "email": "evold@mozilla.com",
