@@ -1,6 +1,6 @@
 {
   "name": "fx-runner",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A node cli to control Firefox",
   "main": "index.js",
   "bin": {
