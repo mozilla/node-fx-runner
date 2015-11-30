@@ -99,6 +99,19 @@ describe("fx-runner start", function () {
         done();
       });
     });
-  });
 
+    it("--listen", function (done) {
+      var proc = exec("start -v -b " + fakeBinary + " --listen 6666", {}, function (err, stdout, stderr) {
+        expect(err).to.not.be.ok;
+        expect(stderr).to.not.be.ok;
+        expect(stdout).to.contain("--start-debugger-server");
+        expect(stdout).to.contain("6666");
+        expect(stdout).to.not.contain("--listen");
+        expect(stdout).to.not.contain("-P");
+        expect(stdout).to.not.contain("-foreground");
+        expect(stdout).to.not.contain("-no-remote");
+        done();
+      });
+    });
+  });
 });
