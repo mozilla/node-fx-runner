@@ -26,7 +26,7 @@ program
       "new-instance": !!program.newInstance ? true : false,
       "foreground": !!program.foreground ? true : false,
       "no-remote": !program.remote ? true : false,
-      "binary-args": program.binaryArgs || "",
+      "binary-args": (program.binaryArgs || "").split(" "),
       "listen": program.listen || 6000
     })
     .then(function(results) {
