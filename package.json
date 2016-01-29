@@ -30,6 +30,7 @@
     "lodash": "3.10.1",
     "spawn-sync": "1.0.15",
     "when": "3.7.2",
+    "which": "^1.2.4",
     "winreg": "0.0.12"
   },
   "devDependencies": {

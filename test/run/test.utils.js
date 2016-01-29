@@ -12,6 +12,7 @@ var utils = require("../../lib/utils");
 var all = require("when").all;
 var sandbox = require('sandboxed-module');
 var binary = utils.normalizeBinary;
+var which = require("which");
 
 var prevDir, prevBinary;
 
@@ -73,16 +74,39 @@ describe("lib/utils", function () {
     all(promises).then(done.bind(null, null), done);
   });
 
-  it("normalizeBinary() default sets (non-windows)", function (done) {
+  it("normalizeBinary() default sets (OS X)", function (done) {
     delete process.env.JPM_FIREFOX_BINARY;
     var args = 0;
     var expected = 1;
 
     var promises = [
       [[null, "darwin", "x86"], "/Applications/Firefox.app/Contents/MacOS/firefox-bin"],
-      [[null, "darwin", "x86_64"], "/Applications/Firefox.app/Contents/MacOS/firefox-bin"],
-      [[null, "linux", "x86"], "/usr/lib/firefox"],
-      [[null, "linux", "x86_64"], "/usr/lib64/firefox"]
+      [[null, "darwin", "x86_64"], "/Applications/Firefox.app/Contents/MacOS/firefox-bin"]
+    ].map(function(fixture) {
+      var promise = binary.apply(binary, fixture[args]);
+      return promise.then(function(actual) {
+        expect(actual).to.be.equal(fixture[expected]);
+      });
+    });
+    all(promises).then(done.bind(null, null), done);
+  });
+
+  it("normalizeBinary() default sets (linux)", function (done) {
+    delete process.env.JPM_FIREFOX_BINARY;
+    var args = 0;
+    var expected = 1;
+
+    var binary = sandbox.require("../../lib/utils", {
+      requires: {
+        which: function(bin, callback) {
+          callback(null, "/usr/bin/" + bin);
+        }
+      }
+    }).normalizeBinary;
+
+    var promises = [
+      [[null, "linux", "x86"], "/usr/bin/firefox"],
+      [[null, "linux", "x86_64"], "/usr/bin/firefox"]
     ].map(function(fixture) {
       var promise = binary.apply(binary, fixture[args]);
       return promise.then(function(actual) {
@@ -155,33 +179,58 @@ describe("lib/utils", function () {
     all(promises).then(done.bind(null, null), done);
   });
 
-  it("normalizeBinary() normalizes special names like: firefox, nightly, etc...(non-Windows)", function(done) {
+  it("normalizeBinary() notmalizes special names like: firefox, nightly, etc... on Linux", function(done) {
+    var args = 0;
+    var expected = 1;
+
+    var binary = sandbox.require("../../lib/utils", {
+      requires: {
+        which: function(bin, callback) {
+          callback(null, "/usr/bin/" + bin);
+        }
+      }
+    }).normalizeBinary;
+
+    var promises = [
+      [["firefox", "linux", "x86"], "/usr/bin/firefox"],
+      [["firefox", "linux", "x86_64"], "/usr/bin/firefox"],
+
+      [["beta", "linux", "x86"], "/usr/bin/firefox-beta"],
+      [["beta", "linux", "x86_64"], "/usr/bin/firefox-beta"],
+      
+      [["aurora", "linux", "x86"], "/usr/bin/firefox-aurora"],
+      [["aurora", "linux", "x86_64"], "/usr/bin/firefox-aurora"],
+
+      [["nightly", "linux", "x86_64"], "/usr/bin/firefox-nightly"],
+      [["nightly", "linux", "x86_64"], "/usr/bin/firefox-nightly"],
+    ].map(function(fixture) {
+      var promise = binary.apply(binary, fixture[args]);
+      return promise.then(function(actual) {
+        expect(actual).to.be.equal(fixture[expected]);
+      });
+    });
+    all(promises).then(done.bind(null, null), done);
+  });
+
+  it("normalizeBinary() normalizes special names like: firefox, nightly, etc... on OS X", function(done) {
     var args = 0;
     var expected = 1;
 
     var promises = [
       [["firefox", "darwin", "x86"], "/Applications/Firefox.app/Contents/MacOS/firefox-bin"],
       [["firefox", "darwin", "x86_64"], "/Applications/Firefox.app/Contents/MacOS/firefox-bin"],
-      [["firefox", "linux", "x86"], "/usr/lib/firefox"],
-      [["firefox", "linux", "x86_64"], "/usr/lib64/firefox"],
 
       [["beta", "darwin", "x86"], "/Applications/FirefoxBeta.app/Contents/MacOS/firefox-bin"],
       [["beta", "darwin", "x86_64"], "/Applications/FirefoxBeta.app/Contents/MacOS/firefox-bin"],
-      [["beta", "linux", "x86"], "/usr/lib/firefox-beta"],
-      [["beta", "linux", "x86_64"], "/usr/lib64/firefox-beta"],
 
       [["firefoxdeveloperedition", "darwin", "x86"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
       [["firefoxdeveloperedition", "darwin", "x86_64"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
 
       [["aurora", "darwin", "x86"], "/Applications/FirefoxAurora.app/Contents/MacOS/firefox-bin"],
       [["aurora", "darwin", "x86_64"], "/Applications/FirefoxAurora.app/Contents/MacOS/firefox-bin"],
-      [["aurora", "linux", "x86"], "/usr/lib/firefox-aurora"],
-      [["aurora", "linux", "x86_64"], "/usr/lib64/firefox-aurora"],
 
       [["nightly", "darwin", "x86"], "/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin"],
-      [["nightly", "darwin", "x86_64"], "/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin"],
-      [["nightly", "linux", "x86"], "/usr/lib/firefox-nightly"],
-      [["nightly", "linux", "x86_64"], "/usr/lib64/firefox-nightly"]
+      [["nightly", "darwin", "x86_64"], "/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin"]
     ].map(function(fixture) {
       var promise = binary.apply(binary, fixture[args]);
       return promise.then(function(actual) {
