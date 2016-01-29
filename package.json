@@ -23,7 +23,7 @@
     "email": "evold@mozilla.com",
     "url": "http://work.erikvold.com/"
   },
-  "license": "MPL 2.0",
+  "license": "MPL-2.0",
   "dependencies": {
     "commander": "2.6.0",
     "fs-promise": "0.3.1",
