@@ -179,7 +179,7 @@ describe("lib/utils", function () {
     all(promises).then(done.bind(null, null), done);
   });
 
-  it("normalizeBinary() notmalizes special names like: firefox, nightly, etc... on Linux", function(done) {
+  it("normalizeBinary() normalizes special names like: firefox, nightly, etc... on Linux", function(done) {
     var args = 0;
     var expected = 1;
 
