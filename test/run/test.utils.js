@@ -197,7 +197,7 @@ describe("lib/utils", function () {
 
       [["beta", "linux", "x86"], "/usr/bin/firefox-beta"],
       [["beta", "linux", "x86_64"], "/usr/bin/firefox-beta"],
-      
+
       [["aurora", "linux", "x86"], "/usr/bin/firefox-aurora"],
       [["aurora", "linux", "x86_64"], "/usr/bin/firefox-aurora"],
 
@@ -238,5 +238,47 @@ describe("lib/utils", function () {
       });
     });
     all(promises).then(done.bind(null, null), done);
+  });
+
+  describe("findMacAppByChannel", function() {
+
+    var defaultNightly = "/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin";
+
+    function spawnSyncStub(stdout) {
+      return function() {
+        return {stdout: stdout};
+      }
+    }
+
+    it("returns false when no app is found", function() {
+      var result = utils.findMacAppByChannel("nightly", {spawnSync: spawnSyncStub("")});
+      expect(result).to.be.equal(null);
+    });
+
+    it("returns sole app result", function() {
+      var result = utils.findMacAppByChannel("nightly", {
+        spawnSync: spawnSyncStub(defaultNightly + "\n"),
+      });
+      expect(result).to.be.equal(defaultNightly);
+    });
+
+    it("prefers to find the default app", function() {
+      var result = utils.findMacAppByChannel("nightly", {
+        spawnSync: spawnSyncStub([
+          "/src/mozilla-central/Nightly.app/Contents/MacOS/firefox-bin",
+          defaultNightly,
+        ].join("\n")),
+      });
+      expect(result).to.be.equal(defaultNightly);
+    });
+
+    it("falls back to the first app result", function() {
+      var randomApp = "/src/mozilla-central/Nightly.app/Contents/MacOS/firefox-bin";
+      var result = utils.findMacAppByChannel("nightly", {
+        spawnSync: spawnSyncStub(randomApp + "\n"),
+      });
+      expect(result).to.be.equal(randomApp);
+    });
+
   });
 });
