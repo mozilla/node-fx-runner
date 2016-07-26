@@ -118,21 +118,19 @@ describe("fx-runner start", function () {
 });
 
 describe("concat binary arguments", function () {
-  it("binary arguments as string", function (done) {
+  it("concats binary arguments from a string", function () {
     var arr = concatBinArgs([], "-a b -c \"d e\"");
     expect(arr[0]).to.be.equal("-a");
     expect(arr[1]).to.be.equal("b");
     expect(arr[2]).to.be.equal("-c");
-    expect(arr[3]).to.be.equal("\"d e\"");
-    done();
+    expect(arr[3]).to.be.equal("d e");
   });
 
-  it("binary arguments as array", function (done) {
-    var arr = concatBinArgs([], ["-a", "b", "-c", "\"d e\""]);
+  it("concats binary arguments from an array", function () {
+    var arr = concatBinArgs([], ["-a", "b", "-c", "d e"]);
     expect(arr[0]).to.be.equal("-a");
     expect(arr[1]).to.be.equal("b");
     expect(arr[2]).to.be.equal("-c");
-    expect(arr[3]).to.be.equal("\"d e\"");
-    done();
+    expect(arr[3]).to.be.equal("d e");
   });
 });
