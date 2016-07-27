@@ -13,6 +13,7 @@ var exec = utils.exec;
 var isWindows = /^win/.test(process.platform);
 var normalizeBinary = require("../../lib/utils").normalizeBinary;
 var cp = require("child_process");
+var parse = require("shell-quote").parse;
 
 var fakeBinary = path.join(__dirname, "..", "utils", "dummybinary" +
   (isWindows ? ".bat" : ".sh"));
@@ -113,5 +114,15 @@ describe("fx-runner start", function () {
         done();
       });
     });
+  });
+});
+
+describe("concat binary arguments", function () {
+  it("concats binary arguments from a string", function () {
+    var arr = parse("-a b -c \"d e\"");
+    expect(arr[0]).to.be.equal("-a");
+    expect(arr[1]).to.be.equal("b");
+    expect(arr[2]).to.be.equal("-c");
+    expect(arr[3]).to.be.equal("d e");
   });
 });
