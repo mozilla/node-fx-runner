@@ -12,7 +12,7 @@ program
   .option("-v, --verbose", "More verbose logging to stdout.")
   .option("--new-instance", "Use a new instance")
   .option("--no-remote", "Do not allow remote calls")
-  .option("--foreground", "Bring Firefox to the fireground")
+  .option("--foreground", "Bring Firefox to the foreground")
   .option("-l, --listen <port>", "Start the debugger server on a specific port.")
 
 program
