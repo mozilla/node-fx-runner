@@ -50,7 +50,6 @@ describe("lib/utils", function () {
     var args = 0;
     var expected = 1;
 
-    var envPath64 = "path\\from\\env\\var\\64";
     var envPath32 = "path\\from\\env\\var\\32";
 
     var binary = sandbox.require("../../lib/utils", {
@@ -59,12 +58,12 @@ describe("lib/utils", function () {
           fn("Failed", null);
         };
       }},
-      locals: {process: {env: {"ProgramFiles": envPath32, "ProgramFiles(x86)": envPath64}}}
+      locals: {process: {env: {"ProgramFiles": envPath32}}}
     }).normalizeBinary;
 
     var promises = [
       [[null, "windows", "x86"], path.join(envPath32, "Mozilla Firefox", "firefox.exe")],
-      [[null, "windows", "x86_64"], path.join(envPath64, "Mozilla Firefox", "firefox.exe")]
+      [[null, "windows", "x86_64"], path.join(envPath32, "Mozilla Firefox", "firefox.exe")]
     ].map(function(fixture) {
       var promise = binary.apply(binary, fixture[args]);
       return promise.then(function(actual) {
