@@ -25,6 +25,6 @@ Options:
 -v, --verbose            More verbose logging to stdout.
 --new-instance           Use a new instance
 --no-remote              Do not allow remote calls
---foreground             Bring Firefox to the fireground
+--foreground             Bring Firefox to the foreground
 -l, --listen <port>      Start the debugger server on a specific port.
 ```
