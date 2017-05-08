@@ -4,7 +4,6 @@
 "use strict";
 
 var when = require("when");
-var fs = require("fs-promise");
 var path = require("path");
 var utils = require("../utils");
 var chai = require("chai");
