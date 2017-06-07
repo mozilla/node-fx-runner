@@ -229,12 +229,19 @@ describe("lib/utils", function () {
       [["aurora", "darwin", "x86"], "/Applications/FirefoxAurora.app/Contents/MacOS/firefox-bin"],
       [["aurora", "darwin", "x86_64"], "/Applications/FirefoxAurora.app/Contents/MacOS/firefox-bin"],
 
-      [["nightly", "darwin", "x86"], "/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin"],
-      [["nightly", "darwin", "x86_64"], "/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin"]
+      // These paths need to be flexible because the detection code may prefer a custom Nightly that was built
+      // locally from mozilla-central over a downloaded Nightly installation.
+      [["nightly", "darwin", "x86"], /Nightly\.app\/Contents\/MacOS\/firefox-bin/],
+      [["nightly", "darwin", "x86_64"], /Nightly\.app\/Contents\/MacOS\/firefox-bin/]
     ].map(function(fixture) {
       var promise = binary.apply(binary, fixture[args]);
       return promise.then(function(actual) {
-        expect(actual).to.be.equal(fixture[expected]);
+        var expectedBinary = fixture[expected];
+        if (expectedBinary instanceof RegExp) {
+          expect(actual).to.match(expectedBinary);
+        } else {
+          expect(actual).to.be.equal(expectedBinary);
+        }
       });
     });
     all(promises).then(done.bind(null, null), done);
