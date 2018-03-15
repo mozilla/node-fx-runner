@@ -113,6 +113,20 @@ describe("fx-runner start", function () {
         done();
       });
     });
+
+    it("--detached", function (done) {
+      var proc = exec("start -v -b " + fakeBinary + " --detached", {}, function (err, stdout, stderr) {
+        expect(err).to.not.be.ok;
+        expect(stderr).to.not.be.ok;
+        expect(stdout).to.contain("detached");
+        expect(stdout).to.not.contain("--detached");
+        expect(stdout).to.not.contain("-P");
+        expect(stdout).to.not.contain("-foreground");
+        expect(stdout).to.not.contain("-no-remote");
+        done();
+      });
+    });
+
   });
 });
 
