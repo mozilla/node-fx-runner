@@ -33,14 +33,11 @@ program
     })
     .then(function(results) {
       var firefox = results.process;
-      if (program.verbose) {
+      if (!program.detached && program.verbose) {
         firefox.stdout.pipe(process.stdout)
       }
 
       if (program.detached) {
-        firefox.stdout.destroy();
-        firefox.stdin.destroy();
-        firefox.stderr.destroy();
         firefox.unref();
       }
 
