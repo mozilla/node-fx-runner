@@ -1,23 +1,18 @@
 language: node_js
 node_js:
-  - "0.10"
-  - "0.12"
-  - "4"
-  - "6"
-
+- '8'
+- '10'
 notifications:
   irc:
     channels:
     - irc.mozilla.org#amo-bots
     on_success: change
     on_failure: always
-
 deploy:
   provider: npm
   email: addons-dev-automation+npm@mozilla.com
-  # This is the API key for npm user 'addons-robot'
   api_key:
-    secure: UMYssbZhyHbNJdkVMBWGh5x61SubrRYlWBOqWbRIiBN67x6+dTfqlXP2sjI536WYNasYHcZN6+v2VMUEcqTYbTbXCk98s5IIkM5YK/aAZynf2l3spsaP4tQk9UFGGIoLNTIF4Xgmwfbw8kkvMy80S1fcHlPdA7har5JxLnBOAs4DUwJUtSQei6T7TUlkbxkKiw8GEqKxCYkeMnidx4AeQUZ+o5CLK5D+sqp1IA8EcyMBvNzQEtGkId5Sq4JNX/Ht9Cj3uWqN0y4rio97ZLbkqQMNyH9FHh5yPsOyaIrmyvbzqB+aZYit0gKht+XQCVTE8pWxvPPPBd53s13mdn3vS7JjsGGuTvjMR6icCjKtw2xlZu6Ezo2i3PcpsJs8Ol3ExGroKVfgwhRsdY90f6Ht4YIHMYizwmqf0/vhbCTwiY4GgrWinx5FUhed/dHJYWxE/nOF/tuy73qFWX/gvlp5VoGDdTN+/KKC9KZb4rwHFey3F5eEW9lJcV+TNf8LKXAFxU6RULrbThH6NXqNUZch+b/GPm83T4Ze3wclXlrA3jIoSfdqdRa6WfPGoESqkUWpJBrNkexUysZqxUAy8i/FIFWeLEvFhTXaj6eKTT1K3AIFkpB9dfjNn5mhqOOXECd1jwuEZhOhgUIhfccRXqua9N7USJKIDCv7OCRE3IZQPdo=
+    secure: dLi8EkDum00Xu56YFNWQBhvFMo2cbvK0Djdpi93Lw1Z6czwUydMRm45aUG4TTE5LO9wx17FWP5y32Mtk/dTScytBANo6WWeUVk6BNLvx8kHR5ancygO8kGpoxspHlpLwnRfgGH7k58KcAklIzgZ69ddok4iWEUo57sMjH/BI3TJ+1j7W3UswsyyI0jg/d62cWiLt7jmqpcsPFBgdYXH9kCVRIybgAuAj9Dw/6yjp1ZgNxiEJATSFS1s971yng3Zn348xwdF2CNRy2EOG9yhtxVQQGrmQOgCoK96w/RKwYRRPAZfQ5fiMsXfmov/xDfApBEY/FD5v01U3iyogWPEwPqIDRrzDUd97hA1F2p9o+4/zHj1dwiu2SStUbBi3Lm7VkDe9WVKWitn+OwFJSezNeUkdGSfrsh9oqfjAfkZVKeQALzsrDpXGD48Zk2tZPw5JyCJzmo+OdIaE9/RdmRmGhIkqUfWIHoL48GbKWOwwqmtnyjjKB1cDm1GDqy+ZytIlGJcJbUcv8eq5OlnlFFINPyj/05lIl3pSH7fEPI+jIqwUEYV6sOA7fWpW1M2IDAPAjsJdno6dtLng8PN12fXKpO0oOYyAdh5dDBe3g3m8T+TUt4SgQ+UkGlbHDw7PSpgqhBHaOKsp2pOd8WdsGgnZTmEmR2Nf2rl345dHHqIZrlY=
   on:
     tags: true
     repo: mozilla-jetpack/node-fx-runner
