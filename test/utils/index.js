@@ -4,14 +4,13 @@
 "use strict";
 
 var path = require("path");
-var extend = require("lodash").extend;
 var cp = require("child_process");
 
 var fxRunner = path.join(__dirname, "../../bin/fx-runner");
 
 function exec (args, options, callback) {
   options = options || {};
-  var env = extend({}, options.env, process.env);
+  var env = Object.assign({}, options.env, process.env);
 
   return cp.exec("node " + fxRunner + " " + args, {
     cwd: options.cwd || __dirname,
