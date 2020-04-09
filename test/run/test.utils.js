@@ -201,6 +201,9 @@ describe("lib/utils", function () {
       [["aurora", "linux", "x86"], "/usr/bin/firefox-aurora"],
       [["aurora", "linux", "x86_64"], "/usr/bin/firefox-aurora"],
 
+      [["firefoxdeveloperedition", "linux", "x86"], "/usr/bin/firefox-developer-edition"],
+      [["firefoxdeveloperedition", "linux", "x86_64"], "/usr/bin/firefox-developer-edition"],
+
       [["nightly", "linux", "x86_64"], "/usr/bin/firefox-nightly"],
       [["nightly", "linux", "x86_64"], "/usr/bin/firefox-nightly"],
     ].map(function(fixture) {
