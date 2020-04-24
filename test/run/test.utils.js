@@ -201,8 +201,8 @@ describe("lib/utils", function () {
       [["aurora", "linux", "x86"], "/usr/bin/firefox-aurora"],
       [["aurora", "linux", "x86_64"], "/usr/bin/firefox-aurora"],
 
-      [["firefoxdeveloperedition", "linux", "x86"], "/usr/bin/firefox-developer-edition"],
-      [["firefoxdeveloperedition", "linux", "x86_64"], "/usr/bin/firefox-developer-edition"],
+      [["deved", "linux", "x86"], "/usr/bin/firefox-developer-edition"],
+      [["deved", "linux", "x86_64"], "/usr/bin/firefox-developer-edition"],
 
       [["nightly", "linux", "x86_64"], "/usr/bin/firefox-nightly"],
       [["nightly", "linux", "x86_64"], "/usr/bin/firefox-nightly"],
@@ -226,6 +226,8 @@ describe("lib/utils", function () {
       [["beta", "darwin", "x86"], "/Applications/FirefoxBeta.app/Contents/MacOS/firefox-bin"],
       [["beta", "darwin", "x86_64"], "/Applications/FirefoxBeta.app/Contents/MacOS/firefox-bin"],
 
+      [["deved", "darwin", "x86"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
+      [["deved", "darwin", "x86_64"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
       [["firefoxdeveloperedition", "darwin", "x86"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
       [["firefoxdeveloperedition", "darwin", "x86_64"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
 
