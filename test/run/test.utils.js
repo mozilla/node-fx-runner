@@ -16,6 +16,17 @@ var which = require("which");
 
 var prevDir, prevBinary;
 
+sandbox.configure({
+  globals: {
+    // As of Node 12.x, the process global is no longer an enumerable property of the global.
+    // https://github.com/nodejs/node/pull/26882
+    // Consequently, sandboxed-module is unable to find the global. To fix this, explicitly
+    // export the "process" global, so that modules (e.g. "which") that use "process" are
+    // able to obtain the "process" global from the sandbox.
+    process: process,
+  },
+});
+
 describe("lib/utils", function () {
   it("normalizeBinary() finds binary by accessing the registry on Windows", function(done) {
     // Skip this test for now, to get Travis running.
