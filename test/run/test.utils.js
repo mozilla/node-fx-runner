@@ -212,8 +212,8 @@ describe("lib/utils", function () {
       [["aurora", "linux", "x86"], "/usr/bin/firefox-aurora"],
       [["aurora", "linux", "x86_64"], "/usr/bin/firefox-aurora"],
 
-      [["deved", "linux", "x86"], "/usr/bin/firefox-developer-edition"],
-      [["deved", "linux", "x86_64"], "/usr/bin/firefox-developer-edition"],
+      [["firefoxdeveloperedition", "linux", "x86"], "/usr/bin/firefox-developer-edition"],
+      [["firefoxdeveloperedition", "linux", "x86_64"], "/usr/bin/firefox-developer-edition"],
 
       [["nightly", "linux", "x86_64"], "/usr/bin/firefox-nightly"],
       [["nightly", "linux", "x86_64"], "/usr/bin/firefox-nightly"],
@@ -234,20 +234,21 @@ describe("lib/utils", function () {
       [["firefox", "darwin", "x86"], "/Applications/Firefox.app/Contents/MacOS/firefox-bin"],
       [["firefox", "darwin", "x86_64"], "/Applications/Firefox.app/Contents/MacOS/firefox-bin"],
 
-      [["beta", "darwin", "x86"], "/Applications/FirefoxBeta.app/Contents/MacOS/firefox-bin"],
-      [["beta", "darwin", "x86_64"], "/Applications/FirefoxBeta.app/Contents/MacOS/firefox-bin"],
+      [["beta", "darwin", "x86"], "/Applications/Firefox.app/Contents/MacOS/firefox-bin"],
+      [["beta", "darwin", "x86_64"], "/Applications/Firefox.app/Contents/MacOS/firefox-bin"],
 
-      [["deved", "darwin", "x86"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
-      [["deved", "darwin", "x86_64"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
-      [["firefoxdeveloperedition", "darwin", "x86"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
-      [["firefoxdeveloperedition", "darwin", "x86_64"], "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin"],
+      [["firefoxdeveloperedition", "darwin", "x86"], "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox-bin"],
+      [["firefoxdeveloperedition", "darwin", "x86_64"], "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox-bin"],
+
+      [["deved", "darwin", "x86"], "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox-bin"],
+      [["deved", "darwin", "x86_64"], "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox-bin"],
 
       [["aurora", "darwin", "x86"], "/Applications/FirefoxAurora.app/Contents/MacOS/firefox-bin"],
       [["aurora", "darwin", "x86_64"], "/Applications/FirefoxAurora.app/Contents/MacOS/firefox-bin"],
 
-      [["nightly", "darwin", "x86"], "/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin"],
-      [["nightly", "darwin", "x86_64"], "/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin"]
-    ].map(function(fixture) {
+      [["nightly", "darwin", "x86"], "/Applications/Firefox Nightly.app/Contents/MacOS/firefox-bin"],
+      [["nightly", "darwin", "x86_64"], "/Applications/Firefox Nightly.app/Contents/MacOS/firefox-bin"]
+    ].map(function (fixture) {
       var promise = binary.apply(binary, fixture[args]);
       return promise.then(function(actual) {
         expect(actual).to.be.equal(fixture[expected]);
@@ -258,7 +259,7 @@ describe("lib/utils", function () {
 
   describe("findMacAppByChannel", function() {
 
-    var defaultNightly = "/Applications/FirefoxNightly.app/Contents/MacOS/firefox-bin";
+    var defaultNightly = "/Applications/Firefox Nightly.app/Contents/MacOS/firefox-bin";
 
     function spawnSyncStub(stdout) {
       return function() {
