@@ -35,14 +35,23 @@ describe("lib/utils", function () {
       return;
     }
 
-    // see ./mock-winreg.js
     var expected = "fake\\binary\\path";
-    var binary = sandbox.require("../../lib/utils", {
-      requires: {"winreg": function() {
-        this.get = function(_, fn) {
+
+    // see ./mock-winreg.js
+    // Only mock keys in HKLM (local machine) hive
+    var winreg = function(options) {
+      this.get = function(_, fn) {
+        if (options.hive === winreg.HKLM) {
           fn(null, {value: expected});
-        };
-      }}
+        } else {
+          fn("Failed", null);
+        }
+      };
+    };
+    winreg.HKLM = 1;
+
+    var binary = sandbox.require("../../lib/utils", {
+      requires: { winreg }
     }).normalizeBinary;
 
     var promises = [
