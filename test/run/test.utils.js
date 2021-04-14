@@ -48,7 +48,7 @@ describe("lib/utils", function () {
         }
       };
     };
-    winreg.HKLM = 1;
+    winreg.HKLM = "HKLM";
 
     var binary = sandbox.require("../../lib/utils", {
       requires: { winreg }
@@ -91,8 +91,8 @@ describe("lib/utils", function () {
       };
     };
     // Differentiate hives
-    winreg.HKLM = 1;
-    winreg.HKCU = 2;
+    winreg.HKLM = "HKLM";
+    winreg.HKCU = "HKCU";
 
     var binary = sandbox.require("../../lib/utils", {
       requires: { winreg }
