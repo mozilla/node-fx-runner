@@ -92,7 +92,13 @@ jobs:
           suffix: << parameters.nodejs >>
       - run_npm_ci
       - run: npm run test
-      - persist_project_repo
+      ## Only persist the workspace once (for the same nodejs
+      ## version that release_tag will be executed for).
+      - when:
+          condition:
+            equal: [*nodejs_current, << parameters.nodejs >>]
+          steps:
+            - persist_project_repo
       - save_build_cache:
           suffix: << parameters.nodejs >>
 
