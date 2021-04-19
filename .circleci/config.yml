@@ -92,6 +92,7 @@ jobs:
           suffix: << parameters.nodejs >>
       - run_npm_ci
       - run: npm run test
+      - persist_project_repo
       - save_build_cache:
           suffix: << parameters.nodejs >>
 
