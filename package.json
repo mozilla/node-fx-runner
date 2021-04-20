@@ -16,13 +16,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/mozilla-jetpack/node-fx-runner"
+    "url": "git://github.com/mozilla/node-fx-runner"
   },
-  "author": {
-    "name": "Erik Vold",
-    "email": "evold@mozilla.com",
-    "url": "http://work.erikvold.com/"
-  },
+  "author": "Mozilla Add-ons Team",
   "license": "MPL-2.0",
   "dependencies": {
     "commander": "2.9.0",
@@ -38,15 +34,5 @@
     "dive": "0.5.0",
     "mocha": "8.3.0",
     "sandboxed-module": "2.0.4"
-  },
-  "maintainers": [
-    {
-      "name": "erikvold",
-      "email": "erikvvold@gmail.com"
-    },
-    {
-      "name": "jsantell",
-      "email": "jsantell@mozilla.com"
-    }
-  ]
+  }
 }
