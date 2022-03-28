@@ -20,9 +20,9 @@ references:
   # The nodejs version set as `nodejs_current` is the one used to
   # release the package on npm.
   nodejs_versions:
-    - &nodejs_current "10.24"
-    - &nodejs_next "12.22"
-    - &nodejs_experimental "14.19"
+    - &nodejs_current "14.19"
+    - &nodejs_next "16.14"
+    - &nodejs_experimental "17.7"
 
   nodejs_enum: &nodejs_enum
     type: enum
