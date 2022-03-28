@@ -14,6 +14,7 @@ program
   .option("--no-remote", "Do not allow remote calls")
   .option("--foreground", "Bring Firefox to the foreground")
   .option("-l, --listen <port>", "Start the debugger server on a specific port.")
+  .option("--detached", "Run as background process.")
 
 program
   .command("start")
@@ -27,13 +28,19 @@ program
       "foreground": !!program.foreground ? true : false,
       "no-remote": !program.remote ? true : false,
       "binary-args": program.binaryArgs || "",
-      "listen": program.listen || 6000
+      "listen": program.listen || 6000,
+      "detached": !!program.detached ? true : false
     })
     .then(function(results) {
       var firefox = results.process;
-      if (program.verbose) {
+      if (!program.detached && program.verbose) {
         firefox.stdout.pipe(process.stdout)
       }
+
+      if (program.detached) {
+        firefox.unref();
+      }
+
     }, console.exception);
   });
 

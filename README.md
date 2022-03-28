@@ -24,6 +24,7 @@ Options:
 --no-remote              Do not allow remote calls
 --foreground             Bring Firefox to the foreground
 -l, --listen <port>      Start the debugger server on a specific port.
+--detached               Run as background process
 ```
 
 ### Releasing
