@@ -21,7 +21,7 @@
   "author": "Mozilla Add-ons Team",
   "license": "MPL-2.0",
   "dependencies": {
-    "commander": "2.9.0",
+    "commander": "9.4.1",
     "shell-quote": "1.7.3",
     "spawn-sync": "1.0.15",
     "when": "3.7.7",
