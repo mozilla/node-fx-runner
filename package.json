@@ -22,7 +22,7 @@
   "license": "MPL-2.0",
   "dependencies": {
     "commander": "2.9.0",
-    "shell-quote": "1.7.3",
+    "shell-quote": "1.7.4",
     "spawn-sync": "1.0.15",
     "when": "3.7.7",
     "which": "1.2.4",
