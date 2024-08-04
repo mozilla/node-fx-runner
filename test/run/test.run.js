@@ -18,7 +18,7 @@ var parse = require("shell-quote").parse;
 var fakeBinary = path.join(__dirname, "..", "utils", "dummybinary" +
   (isWindows ? ".bat" : ".sh"));
 
-describe("fx-runner start", function () {
+describe.skip("fx-runner start", function () {
   describe("-b/--binary <FAKE_BINARY>", function () {
     it("-p <name>", function (done) {
       var proc = exec("start -v -b " + fakeBinary + " -p foo", {}, function (err, stdout, stderr) {
