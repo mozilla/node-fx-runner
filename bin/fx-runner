@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var VERSION = require("../package.json").version;
-var program = require("commander");
+var { program } = require('commander');
 var run = require("../lib/run");
 
 program
@@ -37,4 +37,4 @@ program
     }, console.exception);
   });
 
-program.parse(process.argv);
+program.parse();
