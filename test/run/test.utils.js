@@ -4,17 +4,12 @@
 "use strict";
 
 var os = require("os");
-var fs = require("fs");
 var path = require("path");
 var chai = require("chai");
 var expect = chai.expect;
 var utils = require("../../lib/utils");
-var all = require("when").all;
 var sandbox = require('sandboxed-module');
 var binary = utils.normalizeBinary;
-var which = require("which");
-
-var prevDir, prevBinary;
 
 sandbox.configure({
   globals: {
@@ -65,7 +60,7 @@ describe("lib/utils", function () {
         expect(actual).to.be.equal(expected);
       });
     });
-    all(promises).then(done.bind(null, null), done);
+    Promise.all(promises).then(done.bind(null, null), done);
   });
 
   it("normalizeBinary() prefers HKCU registry hive over HKLM on Windows", function(done) {
@@ -110,7 +105,7 @@ describe("lib/utils", function () {
         expect(actual).to.be.equal(expected);
       });
     });
-    all(promises).then(done.bind(null, null), done);
+    Promise.all(promises).then(done.bind(null, null), done);
   });
 
   it("normalizeBinary() uses env var when registry access fails on Windows", function(done) {
@@ -138,7 +133,7 @@ describe("lib/utils", function () {
         expect(actual).to.be.equal(fixture[expected]);
       });
     });
-    all(promises).then(done.bind(null, null), done);
+    Promise.all(promises).then(done.bind(null, null), done);
   });
 
   it("normalizeBinary() default sets (OS X)", function (done) {
@@ -155,7 +150,7 @@ describe("lib/utils", function () {
         expect(actual).to.be.equal(fixture[expected]);
       });
     });
-    all(promises).then(done.bind(null, null), done);
+    Promise.all(promises).then(done.bind(null, null), done);
   });
 
   it("normalizeBinary() default sets (linux)", function (done) {
@@ -180,7 +175,7 @@ describe("lib/utils", function () {
         expect(actual).to.be.equal(fixture[expected]);
       });
     });
-    all(promises).then(done.bind(null, null), done);
+    Promise.all(promises).then(done.bind(null, null), done);
   });
 
   it("normalizeBinary() returns binary path if passed", function (done) {
@@ -243,7 +238,7 @@ describe("lib/utils", function () {
         expect(actual).to.be.equal(fixture[expected]);
       });
     });
-    all(promises).then(done.bind(null, null), done);
+    Promise.all(promises).then(done.bind(null, null), done);
   });
 
   it("normalizeBinary() normalizes special names like: firefox, nightly, etc... on Linux", function(done) {
@@ -279,7 +274,7 @@ describe("lib/utils", function () {
         expect(actual).to.be.equal(fixture[expected]);
       });
     });
-    all(promises).then(done.bind(null, null), done);
+    Promise.all(promises).then(done.bind(null, null), done);
   });
 
   it("normalizeBinary() normalizes special names like: firefox, nightly, etc... on OS X", function(done) {
@@ -310,7 +305,7 @@ describe("lib/utils", function () {
         expect(actual).to.be.equal(fixture[expected]);
       });
     });
-    all(promises).then(done.bind(null, null), done);
+    Promise.all(promises).then(done.bind(null, null), done);
   });
 
   describe("findMacAppByChannel", function() {
