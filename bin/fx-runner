@@ -17,9 +17,9 @@ program
   .option("--new-instance", "Use a new instance")
   .option("--no-remote", "Do not allow remote calls")
   .option("--foreground", "Bring Firefox to the foreground")
-  .option("-l, --listen <port>", "Start the debugger server on a specific port.")
+  .option("-l, --listen <port>", "Start the debugger server on a specific port.", parseInt)
   .action(function(options) {
-    run({
+    const parsedOptions = {
       binary: options.binary || process.env.JPM_FIREFOX_BINARY || "firefox",
       profile: options.profile,
       "new-instance": !!options.newInstance ? true : false,
@@ -27,7 +27,13 @@ program
       "no-remote": !options.remote ? true : false,
       "binary-args": options.binaryArgs || "",
       "listen": options.listen || 6000
-    })
+    };
+
+    if (process.env.TESTING_FX_RUNNER) {
+      console.log(JSON.stringify(parsedOptions));
+    }
+
+    run(parsedOptions)
     .then(function(results) {
       var firefox = results.process;
       if (program.verbose) {
