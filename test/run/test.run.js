@@ -3,16 +3,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 "use strict";
 
-var when = require("when");
 var path = require("path");
 var utils = require("../utils");
 var chai = require("chai");
 var expect = chai.expect;
 var exec = utils.exec;
 var isWindows = /^win/.test(process.platform);
-var normalizeBinary = require("../../lib/utils").normalizeBinary;
 var run = require("../../lib/run");
-var cp = require("child_process");
 var parse = require("shell-quote").parse;
 
 var fakeBinary = path.join(__dirname, "..", "utils", "dummybinary" +
