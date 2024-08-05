@@ -23,7 +23,6 @@
   "dependencies": {
     "commander": "2.9.0",
     "shell-quote": "1.8.1",
-    "spawn-sync": "1.0.15",
     "which": "1.2.4",
     "winreg": "0.0.12"
   },
