@@ -24,7 +24,7 @@
     "commander": "2.9.0",
     "shell-quote": "1.8.1",
     "which": "1.2.4",
-    "winreg": "0.0.12"
+    "winreg": "1.2.5"
   },
   "devDependencies": {
     "async": "3.2.4",
