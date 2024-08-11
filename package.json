@@ -23,7 +23,7 @@
   "dependencies": {
     "commander": "2.9.0",
     "shell-quote": "1.8.1",
-    "which": "1.2.4",
+    "which": "^4.0.0",
     "winreg": "0.0.12"
   },
   "devDependencies": {
