@@ -15,99 +15,127 @@ var parse = require("shell-quote").parse;
 var fakeBinary = path.join(__dirname, "..", "utils", "dummybinary" +
   (isWindows ? ".bat" : ".sh"));
 
+const ENV = {
+  env: {
+    TESTING_FX_RUNNER: true
+  }
+};
+
 describe("fx-runner start", function () {
   describe("-b/--binary <FAKE_BINARY>", function () {
     it("-p <name>", function (done) {
-      var proc = exec("start -v -b " + fakeBinary + " -p foo", {}, function (err, stdout, stderr) {
+      var proc = exec("start -v -b " + fakeBinary + " -p foo", ENV, function (err, stdout, stderr) {
         expect(err).to.not.be.ok;
         expect(stderr).to.not.be.ok;
-        expect(stdout).to.contain("-P foo");
-        expect(stdout).to.not.contain("--P");
-        expect(stdout).to.not.contain("-foreground");
-        expect(stdout).to.not.contain("-no-remote");
-        expect(stdout).to.not.contain("-new-instance");
+        expect(JSON.parse(stdout)).to.contain({
+          binary: fakeBinary,
+          profile: "foo",
+          "new-instance": false,
+          "foreground": false,
+          "no-remote": false,
+          "binary-args": "",
+          "listen": 6000
+        });
         done();
       });
     });
 
     it("-p <path>", function (done) {
-      var proc = exec("start -v -b " + fakeBinary + " -p ./", {}, function (err, stdout, stderr) {
+      var proc = exec("start -v -b " + fakeBinary + " -p ./", ENV, function (err, stdout, stderr) {
         expect(err).to.not.be.ok;
         expect(stderr).to.not.be.ok;
-        expect(stdout).to.contain("-profile ./");
-        expect(stdout).to.not.contain("--profile");
-        expect(stdout).to.not.contain("--P");
-        expect(stdout).to.not.contain("-foreground");
-        expect(stdout).to.not.contain("-no-remote");
-        expect(stdout).to.not.contain("-new-instance");
+
+        expect(JSON.parse(stdout)).to.contain({
+          binary: fakeBinary,
+          profile: "./",
+          "new-instance": false,
+          "foreground": false,
+          "no-remote": false,
+          "binary-args": "",
+          "listen": 6000
+        });
+
         done();
       });
     });
 
     it("--binary-args <CMDARGS>", function (done) {
-      var proc = exec("start -v -b " + fakeBinary + " --binary-args \"-test\" ./", {}, function (err, stdout, stderr) {
+      var proc = exec("start -v -b " + fakeBinary + " --binary-args \"-test\" ./", ENV, function (err, stdout, stderr) {
         expect(err).to.not.be.ok;
         expect(stderr).to.not.be.ok;
-        expect(stdout).to.contain("-test");
-        expect(stdout).to.not.contain("--binary-args");
-        expect(stdout).to.not.contain("--profile");
-        expect(stdout).to.not.contain("--P");
-        expect(stdout).to.not.contain("-foreground");
-        expect(stdout).to.not.contain("-no-remote");
-        expect(stdout).to.not.contain("-new-instance");
+
+        expect(JSON.parse(stdout)).to.contain({
+          binary: fakeBinary,
+          "new-instance": false,
+          "foreground": false,
+          "no-remote": false,
+          "binary-args": "-test",
+          "listen": 6000
+        });
         done();
       });
     });
 
     it("--foreground", function (done) {
-      var proc = exec("start -v -b " + fakeBinary + " --foreground", {}, function (err, stdout, stderr) {
+      var proc = exec("start -v -b " + fakeBinary + " --foreground", ENV, function (err, stdout, stderr) {
         expect(err).to.not.be.ok;
         expect(stderr).to.not.be.ok;
-        expect(stdout).to.contain("-foreground");
-        expect(stdout).to.not.contain("--foreground");
-        expect(stdout).to.not.contain("-P");
-        expect(stdout).to.not.contain("-no-remote");
-        expect(stdout).to.not.contain("-new-instance");
+        expect(JSON.parse(stdout)).to.contain({
+          binary: fakeBinary,
+          "new-instance": false,
+          "foreground": true,
+          "no-remote": false,
+          "binary-args": "",
+          "listen": 6000
+        });
         done();
       });
     });
 
     it("--no-remote", function (done) {
-      var proc = exec("start -v -b " + fakeBinary + " --no-remote", {}, function (err, stdout, stderr) {
+      var proc = exec("start -v -b " + fakeBinary + " --no-remote", ENV, function (err, stdout, stderr) {
         expect(err).to.not.be.ok;
         expect(stderr).to.not.be.ok;
-        expect(stdout).to.contain("-no-remote");
-        expect(stdout).to.not.contain("--no-remote");
-        expect(stdout).to.not.contain("-P");
-        expect(stdout).to.not.contain("-foreground");
-        expect(stdout).to.not.contain("-new-instance");
+        expect(JSON.parse(stdout)).to.contain({
+          binary: fakeBinary,
+          "new-instance": false,
+          "foreground": false,
+          "no-remote": true,
+          "binary-args": "",
+          "listen": 6000
+        });
         done();
       });
     });
 
     it("--new-instance", function (done) {
-      var proc = exec("start -v -b " + fakeBinary + " --new-instance", {}, function (err, stdout, stderr) {
+      var proc = exec("start -v -b " + fakeBinary + " --new-instance", ENV, function (err, stdout, stderr) {
         expect(err).to.not.be.ok;
         expect(stderr).to.not.be.ok;
-        expect(stdout).to.contain("-new-instance");
-        expect(stdout).to.not.contain("--new-instance");
-        expect(stdout).to.not.contain("-P");
-        expect(stdout).to.not.contain("-foreground");
-        expect(stdout).to.not.contain("-no-remote");
+        expect(JSON.parse(stdout)).to.contain({
+          binary: fakeBinary,
+          "new-instance": true,
+          "foreground": false,
+          "no-remote": false,
+          "binary-args": "",
+          "listen": 6000
+        });
         done();
       });
     });
 
     it("--listen", function (done) {
-      var proc = exec("start -v -b " + fakeBinary + " --listen 6666", {}, function (err, stdout, stderr) {
+      var proc = exec("start -v -b " + fakeBinary + " --listen 6666", ENV, function (err, stdout, stderr) {
         expect(err).to.not.be.ok;
         expect(stderr).to.not.be.ok;
-        expect(stdout).to.contain("-start-debugger-server");
-        expect(stdout).to.contain("6666");
-        expect(stdout).to.not.contain("--listen");
-        expect(stdout).to.not.contain("-P");
-        expect(stdout).to.not.contain("-foreground");
-        expect(stdout).to.not.contain("-no-remote");
+        expect(JSON.parse(stdout)).to.contain({
+          binary: fakeBinary,
+          "new-instance": false,
+          "foreground": false,
+          "no-remote": false,
+          "binary-args": "",
+          "listen": 6666
+        });
         done();
       });
     });
