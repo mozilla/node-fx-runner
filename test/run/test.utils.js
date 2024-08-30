@@ -12,6 +12,10 @@ var sandbox = require('sandboxed-module');
 var binary = utils.normalizeBinary;
 
 sandbox.configure({
+  requires: {
+    // sandboxed-module is unable to find this module directly
+    "fs/promises": require("fs/promises"),
+  },
   globals: {
     // As of Node 12.x, the process global is no longer an enumerable property of the global.
     // https://github.com/nodejs/node/pull/26882
@@ -160,9 +164,7 @@ describe("lib/utils", function () {
 
     var binary = sandbox.require("../../lib/utils", {
       requires: {
-        which: function(bin, callback) {
-          callback(null, "/usr/bin/" + bin);
-        }
+        which: async (bin) => "/usr/bin/" + bin
       }
     }).normalizeBinary;
 
@@ -247,9 +249,7 @@ describe("lib/utils", function () {
 
     var binary = sandbox.require("../../lib/utils", {
       requires: {
-        which: function(bin, callback) {
-          callback(null, "/usr/bin/" + bin);
-        }
+        which: async (bin) => "/usr/bin/" + bin
       }
     }).normalizeBinary;
 
