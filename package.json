@@ -21,7 +21,7 @@
   "author": "Mozilla Add-ons Team",
   "license": "MPL-2.0",
   "dependencies": {
-    "commander": "^12.1.0",
+    "commander": "^14.0.2",
     "shell-quote": "1.8.1",
     "which": "^4.0.0",
     "winreg": "0.0.12"
