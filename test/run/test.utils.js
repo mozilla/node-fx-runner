@@ -222,6 +222,9 @@ describe("lib/utils", function () {
         if (options.key.toLowerCase().indexOf("aurora") != -1) {
           value = "aurora";
         }
+        if (options.key.toLowerCase().indexOf("esr") != -1) {
+          value = "Mozilla Firefox ESR";
+        }
         this.get = function(_, fn) {
           fn(null, {value: value});
         };
