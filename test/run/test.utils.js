@@ -222,6 +222,9 @@ describe("lib/utils", function () {
         if (options.key.toLowerCase().indexOf("aurora") != -1) {
           value = "aurora";
         }
+        if (options.key.toLowerCase().indexOf("esr") != -1) {
+          value = "Mozilla Firefox ESR";
+        }
         this.get = function(_, fn) {
           fn(null, {value: value});
         };
@@ -233,7 +236,9 @@ describe("lib/utils", function () {
       [["nightly", "windows", "x86"], "nightly"],
       [["nightly", "windows", "x86_64"], "nightly"],
       [["aurora", "windows", "x86"], "aurora"],
-      [["aurora", "windows", "x86_64"], "aurora"]
+      [["aurora", "windows", "x86_64"], "aurora"],
+      [["esr", "windows", "x86"], "Mozilla Firefox ESR"],
+      [["esr", "windows", "x86_64"], "Mozilla Firefox ESR"]
     ].map(function(fixture) {
       var promise = binary.apply(binary, fixture[args]);
       return promise.then(function(actual) {
@@ -268,6 +273,9 @@ describe("lib/utils", function () {
 
       [["nightly", "linux", "x86_64"], "/usr/bin/firefox-nightly"],
       [["nightly", "linux", "x86_64"], "/usr/bin/firefox-nightly"],
+
+      [["esr", "linux", "x86"], "/usr/bin/firefox-esr"],
+      [["esr", "linux", "x86_64"], "/usr/bin/firefox-esr"],
     ].map(function(fixture) {
       var promise = binary.apply(binary, fixture[args]);
       return promise.then(function(actual) {
@@ -298,7 +306,10 @@ describe("lib/utils", function () {
       [["aurora", "darwin", "x86_64"], "/Applications/FirefoxAurora.app/Contents/MacOS/firefox"],
 
       [["nightly", "darwin", "x86"], "/Applications/Firefox Nightly.app/Contents/MacOS/firefox"],
-      [["nightly", "darwin", "x86_64"], "/Applications/Firefox Nightly.app/Contents/MacOS/firefox"]
+      [["nightly", "darwin", "x86_64"], "/Applications/Firefox Nightly.app/Contents/MacOS/firefox"],
+
+      [["esr", "darwin", "x86"], "/Applications/Firefox ESR.app/Contents/MacOS/firefox"],
+      [["esr", "darwin", "x86_64"], "/Applications/Firefox ESR.app/Contents/MacOS/firefox"]
     ].map(function (fixture) {
       var promise = binary.apply(binary, fixture[args]);
       return promise.then(function(actual) {
